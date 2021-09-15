@@ -18,17 +18,24 @@ async def get_candlestick(SYMBOL : str):
     # Input datetime must be string
     candles = binance_client.get_historical_klines(SYMBOL, Client.KLINE_INTERVAL_15MINUTE, ONE_WEEK_AGO, NOW)
 
-    keys = ["Time", "Open", "High", "Low", "Close"]
-
     output = []
 
     # Add key to each index of data
     for cs in candles :
-        
-        cs[0] = datetime.datetime.fromtimestamp((cs[0]/1000)).strftime('%Y-%m-%d %H:%M:%S')
+        time = datetime.datetime.fromtimestamp((cs[0]/1000)).strftime('%Y-%m-%d %H:%M:%S')
 
         # Use only index 0 to 5
-        price_dict = dict(zip(keys, cs[0:5]))
-        output.append(price_dict)
+        price_in_time = [float(d) for d in cs[1:5]]
+        output.append([time] + price_in_time)
 
+    return output
+
+@router.get("/symbol")
+async def get_all_symbol():
+    binance_client = Client()
+    all_tickets = binance_client.get_all_tickers()
+    output = []
+    for coin in all_tickets:
+        output.append({'value': coin['symbol']}) 
+    
     return output
