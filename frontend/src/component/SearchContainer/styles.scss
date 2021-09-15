@@ -1,0 +1,12 @@
+@import '../../index.scss';
+
+.SearchContainer {
+
+    align-items: center;
+
+    height: 100px;
+
+    .ant-input-search {
+        width: 40%;
+    }
+}
