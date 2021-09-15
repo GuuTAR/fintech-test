@@ -1,0 +1,15 @@
+@import '../../index.scss';
+
+.Header {
+    justify-content: space-between;
+    align-items: center;
+
+    background-color:blue;
+    width: 100%;
+    h2 {
+        color: white;
+    }
+
+    padding: 5px 10px;
+}
+
